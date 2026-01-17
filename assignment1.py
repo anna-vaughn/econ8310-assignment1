@@ -15,10 +15,4 @@ modelFit = model.fit(data_p)
 # Create an empty dataframe with dates for future periods
 future = modelFit.make_future_dataframe(periods=744, freq='h')
 # Fill in dataframe wtih forecasts of `y` for the future periods
-forecast = modelFit.predict(future)
-
-# Get only forecasted variables.
-pred = forecast.loc[(forecast['ds'] >= '2019-01-01 00:00:00')]
-pred = pred[['ds', 'trend']]
-pred['trend'] = pred['trend'].astype(int)
-pred = pred.reset_index(drop=True)
+pred = modelFit.predict(future)
