@@ -10,14 +10,15 @@ data_p = data[['Timestamp', 'trips']]
 data_p.columns = ['ds', 'y'] # Renaming the columns per Prophet's requirements.
 
 model = Prophet()
-model = model.fit(data_p)
+modelFit = model.fit(data_p)
 
 # Create an empty dataframe with dates for future periods
-future = model.make_future_dataframe(periods=744, freq='h')
+future = modelFit.make_future_dataframe(periods=744, freq='h')
 # Fill in dataframe wtih forecasts of `y` for the future periods
-modelFit = model.predict(future)
+forecast = modelFit.predict(future)
 
 # Get only forecasted variables.
-pred = modelFit.loc[(modelFit['ds'] >= '2019-01-01 00:00:00')]
+pred = forecast.loc[(forecast['ds'] >= '2019-01-01 00:00:00')]
 pred = pred[['ds', 'trend']]
+pred['trend'] = pred['trend'].astype(int)
 pred = pred.reset_index(drop=True)
