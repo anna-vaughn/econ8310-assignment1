@@ -18,3 +18,4 @@ data_f = data_test[['Timestamp']]
 data_f.columns = ['ds']
 
 pred = modelFit.predict(data_f)
+pred = pred[['trend']]
